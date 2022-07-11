@@ -62,16 +62,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun SpiralCircles() {
 
-    val rotation1 = getCurrentRotation(1)
-    val rotation2 = getCurrentRotation(2)
-    val rotation3 = getCurrentRotation(3)
-    val rotation4 = getCurrentRotation(4)
-    val rotation5 = getCurrentRotation(5)
-    val rotation6 = getCurrentRotation(6)
-    val rotation7 = getCurrentRotation(7)
-    val rotation8 = getCurrentRotation(8)
-    val rotation9 = getCurrentRotation(9)
-    val rotation10 = getCurrentRotation(20)
+    val rotation1 = rememberCurrentRotation(1)
+    val rotation2 = rememberCurrentRotation(2)
+    val rotation3 = rememberCurrentRotation(3)
+    val rotation4 = rememberCurrentRotation(4)
+    val rotation5 = rememberCurrentRotation(5)
+    val rotation6 = rememberCurrentRotation(6)
+    val rotation7 = rememberCurrentRotation(7)
+    val rotation8 = rememberCurrentRotation(8)
+    val rotation9 = rememberCurrentRotation(9)
+    val rotation10 = rememberCurrentRotation(20)
 
     Canvas(modifier = Modifier.clipToBounds()) {
         val cx = size.width / 2
@@ -131,7 +131,7 @@ fun SpiralCircles() {
 }
 
 @Composable
-private fun getCurrentRotation(animationTime: Int): Animatable<Float, AnimationVector1D> {
+private fun rememberCurrentRotation(animationTime: Int): Animatable<Float, AnimationVector1D> {
     var currentRotation by remember { mutableStateOf(0f) }
 
     val rotation = remember { Animatable(currentRotation) }
