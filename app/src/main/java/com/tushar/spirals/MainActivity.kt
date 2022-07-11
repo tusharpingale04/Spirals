@@ -17,29 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.dp
-import com.tushar.spirals.MainActivity.Companion.CIRCLE_SIZES
-import com.tushar.spirals.ui.theme.*
+import com.tushar.spirals.ui.theme.Color_2596BE
 import com.tushar.spirals.ui.theme.SpiralsTheme
 import kotlin.math.cos
 import kotlin.math.sin
 
 class MainActivity : ComponentActivity() {
-
-    companion object {
-        val CIRCLE_SIZES = mapOf(
-            4 to Pair(8f, DarkGreen100),
-            8 to Pair(8.2f, DarkGreen90),
-            12 to Pair(8.4f, DarkGreen80),
-            16 to Pair(8.6f, DarkGreen70),
-            20 to Pair(8.8f, DarkGreen60),
-            24 to Pair(9f, DarkGreen50),
-            28 to Pair(9.2f, DarkGreen40),
-            32 to Pair(9.4f, DarkGreen30),
-            36 to Pair(9.6f, DarkGreen20),
-            40 to Pair(9.8f, DarkGreen10)
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -47,10 +30,10 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier
-                        .background(Color.Blue)
+                        .background(Color_2596BE)
                         .fillMaxSize()
                         .padding(16.dp),
-                    color = Color.Blue,
+                    color = Color_2596BE,
                 ) {
                     SpiralCircles()
                 }
@@ -158,18 +141,28 @@ private fun DrawScope.drawCircleUsingCoordinates(
     noOfSides: Int,
     animatedAngle: () -> Float = { 0.0f }
 ) {
+    val sizeMap = mapOf(
+        4 to 8f,
+        8 to 8.2f,
+        12 to 8.4f,
+        16 to 8.6f,
+        20 to 8.8f,
+        24 to 9f,
+        28 to 9.2f,
+        32 to 9.4f,
+        36 to 9.6f,
+        40 to 9.8f
+    )
     var angle = animatedAngle()
     var xOffset: Float
     var yOffset: Float
 
-    val (dimens, color) = CIRCLE_SIZES[noOfSides] ?: Pair(8f, DarkGreen100)
-
     for (i in 0 until noOfSides) {
-        xOffset = (cx + offSet * cos(Math.toRadians(angle.toDouble()))).toFloat()
-        yOffset = (cy + offSet * sin(Math.toRadians(angle.toDouble()))).toFloat()
+        xOffset = (cx + offSet * cos((Math.PI * angle) / 180)).toFloat()
+        yOffset = (cy + offSet * sin((Math.PI * angle) / 180)).toFloat()
         drawCircle(
-            SolidColor(color),
-            radius = dimens,
+            SolidColor(Color.White),
+            radius = sizeMap[noOfSides] ?: 8f,
             center = Offset(xOffset, yOffset)
         )
         angle += rotateAngle
